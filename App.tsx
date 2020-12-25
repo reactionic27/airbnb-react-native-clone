@@ -9,6 +9,7 @@ const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache(),
 });
+
 const Stack = createStackNavigator();
 
 const App = () => {
