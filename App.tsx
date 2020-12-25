@@ -1,16 +1,17 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {Provider} from 'react-redux';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {Apartments} from './src/screens/Apartments';
 
-import configureStore from './src/redux/store';
-
-const store = configureStore();
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <Text>Main Page</Text>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Apartments />
+    </ApolloProvider>
   );
 };
 
