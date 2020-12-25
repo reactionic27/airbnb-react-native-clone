@@ -4,7 +4,7 @@ import {useQuery} from '@apollo/client';
 
 import {GET_APARTMENTS_QUERY} from '../graphql';
 
-export function Apartments() {
+export function ApartmentsScreen() {
   const {data, loading} = useQuery(GET_APARTMENTS_QUERY, {
     variables: {
       filter: {sqmLte: 108, numberOfBedroom: 1},
