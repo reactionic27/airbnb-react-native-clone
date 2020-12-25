@@ -1,0 +1,4 @@
+// Users
+export const GET_ALL_USERS_REQUEST = 'users/GET_ALL_USERS_REQUEST';
+export const GET_ALL_USERS_SUCCESS = 'users/GET_ALL_USERS_SUCCESS';
+export const GET_ALL_USERS_FAILURE = 'users/GET_ALL_USERS_FAILURE';
