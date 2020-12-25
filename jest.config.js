@@ -7,7 +7,7 @@ module.exports = {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   modulePaths: ['<rootDir>'],
-  setupFiles: ['./src/setupTests.js'],
+  setupFiles: ['./setupTests.js'],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|svg)$': '<rootDir>/tools/assetsTransformer.js',
   },
