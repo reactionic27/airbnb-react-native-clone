@@ -10,7 +10,6 @@ import {
 import {useQuery} from '@apollo/client';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {SquareMeterText} from '../components/SquareMeterText';
 import {GET_APARTMENTS_QUERY} from '../graphql';
 import {defaultFilterOption} from '../constants';
 import {ApartmentType} from '../types';
@@ -109,9 +108,8 @@ export function ApartmentsScreen() {
                 </Text>
                 <View style={styles.flexView}>
                   <Text style={styles.sqmText}>
-                    {numberWithCommas(item.pricePerSqm)} €/
+                    {numberWithCommas(item.pricePerSqm)} €/m²
                   </Text>
-                  <SquareMeterText color={'black'} />
                 </View>
               </View>
             </ImageBackground>
@@ -140,9 +138,7 @@ export function ApartmentsScreen() {
                     size={15}
                     color="gray"
                   />
-                  <Text style={styles.infoText}>{item.sqm}</Text>
-                  <Text>&nbsp;</Text>
-                  <SquareMeterText color={'gray'} />
+                  <Text style={styles.infoText}>{item.sqm} m²</Text>
                 </View>
               </View>
             </View>
