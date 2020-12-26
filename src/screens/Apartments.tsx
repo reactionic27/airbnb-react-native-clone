@@ -1,4 +1,4 @@
-import React, {Fragment, useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,6 +11,7 @@ import {useQuery} from '@apollo/client';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {SquareMeterText} from '../components/SquareMeterText';
 import {GET_APARTMENTS_QUERY} from '../graphql';
 
 type ApartmentType = {
@@ -47,58 +48,61 @@ export function ApartmentsScreen() {
   console.log('buildings', buildings);
 
   return (
-    <Fragment>
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          data={buildings}
-          keyExtractor={(item) => item.id}
-          renderItem={({item}) => (
-            <View style={styles.listItem}>
-              <ImageBackground
-                source={{uri: item.picture}}
-                style={styles.photoBG}
-                imageStyle={styles.photo}>
-                <View style={styles.priceView}>
-                  <Text style={styles.price}>{item.price} €</Text>
-                  <Text style={styles.sqmText}>{item.pricePerSqm} €/m2</Text>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={buildings}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => (
+          <View style={styles.listItem}>
+            <ImageBackground
+              source={{uri: item.picture}}
+              style={styles.photoBG}
+              imageStyle={styles.photo}>
+              <View style={styles.priceView}>
+                <Text style={styles.price}>{item.price} €</Text>
+                <View style={styles.flexView}>
+                  <Text style={styles.sqmText}>{item.pricePerSqm} €/</Text>
+                  <SquareMeterText color={'black'} />
                 </View>
-              </ImageBackground>
-              <View>
-                <Text style={styles.title}>{item.title}</Text>
-                <View style={styles.infoView}>
-                  <View style={styles.itemView}>
-                    <Ionicons name="md-bed-outline" size={20} color="gray" />
-                    <Text style={styles.infoText}>
-                      {item.numberOfBedrooms} bedrooms
-                    </Text>
-                  </View>
-                  <View style={styles.itemCenterView}>
-                    <MaterialCommunityIcons
-                      name="shower"
-                      size={20}
-                      color="gray"
-                    />
-                    <Text style={styles.infoText}>
-                      {item.numberOfBathrooms} bathrooms
-                    </Text>
-                  </View>
-                  <View style={styles.itemRightView}>
-                    <MaterialCommunityIcons
-                      name="square-off-outline"
-                      size={20}
-                      color="gray"
-                    />
-                    <Text style={styles.infoText}>{item.sqm} m2</Text>
-                  </View>
+              </View>
+            </ImageBackground>
+            <View>
+              <Text style={styles.title}>{item.title}</Text>
+              <View style={styles.infoView}>
+                <View style={styles.itemView}>
+                  <Ionicons name="md-bed-outline" size={15} color="gray" />
+                  <Text style={styles.infoText}>
+                    {item.numberOfBedrooms} habs.
+                  </Text>
+                </View>
+                <View style={styles.itemCenterView}>
+                  <MaterialCommunityIcons
+                    name="shower"
+                    size={15}
+                    color="gray"
+                  />
+                  <Text style={styles.infoText}>
+                    {item.numberOfBathrooms} baño
+                  </Text>
+                </View>
+                <View style={styles.itemRightView}>
+                  <MaterialCommunityIcons
+                    name="square-off-outline"
+                    size={15}
+                    color="gray"
+                  />
+                  <Text style={styles.infoText}>{item.sqm}</Text>
+                  <Text>&nbsp;</Text>
+                  <SquareMeterText color={'gray'} />
                 </View>
               </View>
             </View>
-          )}
-          onEndReachedThreshold={0.9}
-          onEndReached={fetchMore}
-        />
-      </SafeAreaView>
-    </Fragment>
+          </View>
+        )}
+        onEndReachedThreshold={0.9}
+        onEndReached={fetchMore}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -168,5 +172,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
     marginTop: 10,
+  },
+  flexView: {
+    flexDirection: 'row',
   },
 });
