@@ -15,6 +15,7 @@ import {GET_APARTMENTS_QUERY} from '../graphql';
 import {defaultFilterOption} from '../constants';
 import {ApartmentType} from '../types';
 import {numberWithCommas} from '../utils';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
 export function ApartmentsScreen() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,7 +38,7 @@ export function ApartmentsScreen() {
   });
 
   useEffect(() => {
-    if (data && !loading) {
+    if (data && !loading && fetchMore) {
       const {allApartments: apartments} = data;
       setBuildings(apartments);
     }
@@ -53,6 +54,46 @@ export function ApartmentsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.filterWrapper}>
+        <ScrollView
+          horizontal
+          removeClippedSubviews
+          contentContainerStyle={styles.scrollView}
+          showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity style={styles.filterItemView}>
+            <Text style={styles.filterText}>Precio</Text>
+            <Ionicons
+              name="caret-down-sharp"
+              size={15}
+              style={styles.downIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.filterItemView}>
+            <Text style={styles.filterText}>Tipo de Vivienda</Text>
+            <Ionicons
+              name="caret-down-sharp"
+              size={15}
+              style={styles.downIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.filterItemView}>
+            <Text style={styles.filterText}>#de habitacion</Text>
+            <Ionicons
+              name="caret-down-sharp"
+              size={15}
+              style={styles.downIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.filterItemView}>
+            <Text style={styles.filterText}>Precio</Text>
+            <Ionicons
+              name="caret-down-sharp"
+              size={15}
+              style={styles.downIcon}
+            />
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
       <FlatList
         data={buildings}
         keyExtractor={(item) => item.id}
@@ -140,7 +181,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    marginVertical: 10,
   },
   name: {
     fontSize: 18,
@@ -205,5 +246,30 @@ const styles = StyleSheet.create({
   },
   flexView: {
     flexDirection: 'row',
+  },
+  filterWrapper: {
+    marginVertical: 20,
+  },
+  scrollView: {
+    marginLeft: 20,
+  },
+  filterItemView: {
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    borderRadius: 3,
+    paddingLeft: 15,
+    paddingRight: 5,
+    paddingVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    flexDirection: 'row',
+  },
+  filterText: {
+    fontSize: 15,
+    fontFamily: 'Raleway-Regular',
+  },
+  downIcon: {
+    marginLeft: 5,
   },
 });
