@@ -94,7 +94,7 @@ export function ApartmentsScreen() {
         </ScrollView>
       </View>
       <FlatList
-        data={buildings}
+        data={loading ? [] : buildings || []}
         keyExtractor={(item) => item.id}
         renderItem={({item}) => (
           <View style={styles.listItem}>
