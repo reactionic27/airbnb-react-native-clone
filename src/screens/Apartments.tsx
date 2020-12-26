@@ -5,7 +5,7 @@ import {
   Text,
   FlatList,
   View,
-  Image,
+  ImageBackground,
 } from 'react-native';
 import {useQuery} from '@apollo/client';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,7 +15,9 @@ import {GET_APARTMENTS_QUERY} from '../graphql';
 
 type ApartmentType = {
   id: string;
+  title: string;
   price: number;
+  pricePerSqm: number;
   sqm: number;
   numberOfBedrooms: number;
   numberOfBathrooms: number;
@@ -40,7 +42,9 @@ export function ApartmentsScreen() {
     }
   }, [data, loading]);
 
-  const fetchMore = useCallback(() => console.log('fetchmore.....'), []);
+  const fetchMore = useCallback(() => console.log('fetch more.....'), []);
+
+  console.log('buildings', buildings);
 
   return (
     <Fragment>
@@ -50,9 +54,17 @@ export function ApartmentsScreen() {
           keyExtractor={(item) => item.id}
           renderItem={({item}) => (
             <View style={styles.listItem}>
-              <Image source={{uri: item.picture}} style={styles.photo} />
+              <ImageBackground
+                source={{uri: item.picture}}
+                style={styles.photoBG}
+                imageStyle={styles.photo}>
+                <View style={styles.priceView}>
+                  <Text style={styles.price}>{item.price} €</Text>
+                  <Text style={styles.sqmText}>{item.pricePerSqm} €/m2</Text>
+                </View>
+              </ImageBackground>
               <View>
-                <Text style={styles.price}>{item.price}€</Text>
+                <Text style={styles.title}>{item.title}</Text>
                 <View style={styles.infoView}>
                   <View style={styles.itemView}>
                     <Ionicons name="md-bed-outline" size={20} color="gray" />
@@ -60,7 +72,7 @@ export function ApartmentsScreen() {
                       {item.numberOfBedrooms} bedrooms
                     </Text>
                   </View>
-                  <View style={styles.itemView}>
+                  <View style={styles.itemCenterView}>
                     <MaterialCommunityIcons
                       name="shower"
                       size={20}
@@ -70,7 +82,7 @@ export function ApartmentsScreen() {
                       {item.numberOfBathrooms} bathrooms
                     </Text>
                   </View>
-                  <View style={styles.itemView}>
+                  <View style={styles.itemRightView}>
                     <MaterialCommunityIcons
                       name="square-off-outline"
                       size={20}
@@ -96,31 +108,65 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   listItem: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   name: {
     fontSize: 18,
     marginLeft: 20,
   },
-  photo: {
+  photoBG: {
     width: '100%',
-    height: 150,
+    height: 200,
+    position: 'relative',
+  },
+  photo: {
     borderRadius: 10,
   },
   price: {
     fontSize: 24,
     fontWeight: 'bold',
   },
+  sqmText: {
+    fontSize: 15,
+    fontWeight: '400',
+  },
   infoView: {
     flexDirection: 'row',
+    marginTop: 10,
   },
   itemView: {
     width: '33%',
     flexDirection: 'row',
     alignItems: 'center',
   },
+  itemCenterView: {
+    width: '33%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  itemRightView: {
+    width: '33%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
   infoText: {
     fontSize: 15,
     color: 'gray',
+    marginLeft: 5,
+  },
+  priceView: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    padding: 5,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '400',
+    marginTop: 10,
   },
 });
