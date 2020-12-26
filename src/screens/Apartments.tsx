@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,26 +13,26 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {SquareMeterText} from '../components/SquareMeterText';
 import {GET_APARTMENTS_QUERY} from '../graphql';
-
-type ApartmentType = {
-  id: string;
-  title: string;
-  price: number;
-  pricePerSqm: number;
-  sqm: number;
-  numberOfBedrooms: number;
-  numberOfBathrooms: number;
-  picture: string;
-};
+import {defaultFilterOption} from '../constants';
+import {ApartmentType} from '../types';
 
 export function ApartmentsScreen() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filterOptions, setFilterOptions] = useState(defaultFilterOption);
   const [buildings, setBuildings] = useState<ApartmentType[]>([]);
 
-  const {data, loading} = useQuery(GET_APARTMENTS_QUERY, {
+  const {data, loading, error, fetchMore} = useQuery(GET_APARTMENTS_QUERY, {
     variables: {
-      filter: {sqmLte: 108, numberOfBedroom: 1},
-      limit: 10,
-      offset: 2,
+      offset: 0,
+      limit: 12,
+      priceGte: filterOptions.price.startVal,
+      priceLte: filterOptions.price.endVal,
+      pricePerSqmGte: filterOptions.pricePerSqm.startVal,
+      pricePerSqmLte: filterOptions.pricePerSqm.endVal,
+      sqmGte: filterOptions.sqm.startVal,
+      sqmLte: filterOptions.sqm.endVal,
+      numberOfBedroom: filterOptions.numberOfBedrooms.value,
+      numberOfBathroom: filterOptions.numberOfBathrooms.value,
     },
   });
 
@@ -41,11 +41,15 @@ export function ApartmentsScreen() {
       const {allApartments: apartments} = data;
       setBuildings(apartments);
     }
-  }, [data, loading]);
+  }, [data, loading, fetchMore]);
 
-  const fetchMore = useCallback(() => console.log('fetch more.....'), []);
+  // const handleFilterOptions = (options: any) => {
+  //   setFilterOptions(options);
+  // };
 
-  console.log('buildings', buildings);
+  if (error) {
+    return <Text>Could not load data from data source.</Text>;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -100,7 +104,26 @@ export function ApartmentsScreen() {
           </View>
         )}
         onEndReachedThreshold={0.9}
-        onEndReached={fetchMore}
+        onEndReached={() => {
+          const currentLength = data.allApartments.length;
+          fetchMore({
+            variables: {
+              offset: currentLength,
+              limit: 12,
+            },
+            updateQuery: (prev: any, {fetchMoreResult}: any) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return Object.assign({}, prev, {
+                allApartments: [
+                  ...prev.allApartments,
+                  ...fetchMoreResult.allApartments,
+                ],
+              });
+            },
+          });
+        }}
       />
     </SafeAreaView>
   );
