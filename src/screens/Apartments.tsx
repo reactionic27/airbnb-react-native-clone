@@ -10,11 +10,11 @@ import {
 import {useQuery} from '@apollo/client';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import {SquareMeterText} from '../components/SquareMeterText';
 import {GET_APARTMENTS_QUERY} from '../graphql';
 import {defaultFilterOption} from '../constants';
 import {ApartmentType} from '../types';
+import {numberWithCommas} from '../utils';
 
 export function ApartmentsScreen() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -63,9 +63,13 @@ export function ApartmentsScreen() {
               style={styles.photoBG}
               imageStyle={styles.photo}>
               <View style={styles.priceView}>
-                <Text style={styles.price}>{item.price} €</Text>
+                <Text style={styles.price}>
+                  {numberWithCommas(item.price)} €
+                </Text>
                 <View style={styles.flexView}>
-                  <Text style={styles.sqmText}>{item.pricePerSqm} €/</Text>
+                  <Text style={styles.sqmText}>
+                    {numberWithCommas(item.pricePerSqm)} €/
+                  </Text>
                   <SquareMeterText color={'black'} />
                 </View>
               </View>
@@ -153,10 +157,11 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 24,
     fontWeight: 'bold',
+    fontFamily: 'Raleway-Black',
   },
   sqmText: {
     fontSize: 15,
-    fontWeight: '400',
+    fontFamily: 'Raleway-Medium',
   },
   infoView: {
     flexDirection: 'row',
@@ -183,6 +188,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     marginLeft: 5,
+    fontFamily: 'Raleway-Medium',
   },
   priceView: {
     position: 'absolute',
@@ -193,8 +199,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '400',
+    fontWeight: 'bold',
     marginTop: 10,
+    fontFamily: 'Raleway-Black',
   },
   flexView: {
     flexDirection: 'row',

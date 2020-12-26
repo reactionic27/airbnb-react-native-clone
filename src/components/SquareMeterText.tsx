@@ -29,11 +29,13 @@ const styles = StyleSheet.create({
   },
   unitText: {
     fontSize: 15,
+    fontFamily: 'Raleway-Medium',
   },
   squareView: {
     alignItems: 'flex-start',
   },
   squareText: {
     fontSize: 10,
+    fontFamily: 'Raleway-Medium',
   },
 });
