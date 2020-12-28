@@ -1,7 +1,12 @@
-import App from '../App';
-import {shallow, ShallowWrapper} from 'enzyme';
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {shallow, ShallowWrapper} from 'enzyme';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+
+import App from '../App';
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache(),
+});
 
 describe('App', () => {
   describe('rendering', () => {
@@ -10,8 +15,8 @@ describe('App', () => {
       wrapper = shallow(<App />);
     });
 
-    it('should render a <SafeAreaView />', () => {
-      expect(wrapper.find(SafeAreaView)).toHaveLength(1);
+    it('should render a <ApolloProvider />', () => {
+      expect(wrapper.find(ApolloProvider)).toHaveLength(1);
     });
   });
 });
