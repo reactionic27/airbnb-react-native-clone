@@ -18,12 +18,13 @@ import {ApartmentType} from '../types';
 import {numberWithCommas} from '../utils';
 import {Header} from '../components/Header';
 import {PriceFilterModal} from '../components/PriceFilterModal';
+import {RoomFilterModal} from '../components/RoomFilterModal';
 
 export function ApartmentsScreen({navigation}: any) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filterOptions, setFilterOptions] = useState(defaultFilterOption);
   const [buildings, setBuildings] = useState<ApartmentType[]>([]);
   const [priceFilterModalVisible, setPriceFilterModalVisible] = useState(false);
+  const [roomFilterModalVisible, setRoomFilterModalVisible] = useState(false);
 
   const {data, loading, error, fetchMore} = useQuery(GET_APARTMENTS_QUERY, {
     variables: {
@@ -47,9 +48,9 @@ export function ApartmentsScreen({navigation}: any) {
     }
   }, [data, loading, fetchMore]);
 
-  // const handleFilterOptions = (options: any) => {
-  //   setFilterOptions(options);
-  // };
+  const handleFilterOptions = (options: any) => {
+    setFilterOptions(options);
+  };
 
   if (error) {
     return <Text>Could not load data from data source.</Text>;
@@ -74,24 +75,10 @@ export function ApartmentsScreen({navigation}: any) {
               style={styles.downIcon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.filterItemView}>
-            <Text style={styles.filterText}>Tipo de Vivienda</Text>
-            <Ionicons
-              name="caret-down-sharp"
-              size={15}
-              style={styles.downIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.filterItemView}>
+          <TouchableOpacity
+            style={styles.filterItemView}
+            onPress={() => setRoomFilterModalVisible(true)}>
             <Text style={styles.filterText}>#de habitacion</Text>
-            <Ionicons
-              name="caret-down-sharp"
-              size={15}
-              style={styles.downIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.filterItemView}>
-            <Text style={styles.filterText}>Mas filtros</Text>
             <Ionicons
               name="caret-down-sharp"
               size={15}
@@ -152,6 +139,11 @@ export function ApartmentsScreen({navigation}: any) {
           </View>
         )}
         onEndReachedThreshold={0.9}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyView}>
+            <Text style={styles.emptyText}>There is no data to displayed</Text>
+          </View>
+        )}
         onEndReached={() => {
           const currentLength = data.allApartments.length;
           fetchMore({
@@ -176,6 +168,14 @@ export function ApartmentsScreen({navigation}: any) {
       <PriceFilterModal
         visible={priceFilterModalVisible}
         setVisible={setPriceFilterModalVisible}
+        filterOptions={filterOptions}
+        handleFilterOptions={handleFilterOptions}
+      />
+      <RoomFilterModal
+        visible={roomFilterModalVisible}
+        setVisible={setRoomFilterModalVisible}
+        filterOptions={filterOptions}
+        handleFilterOptions={handleFilterOptions}
       />
     </SafeAreaView>
   );
@@ -278,5 +278,14 @@ const styles = StyleSheet.create({
   },
   downIcon: {
     marginLeft: 5,
+  },
+  emptyView: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
+    fontFamily: 'Raleway-Regular',
   },
 });

@@ -9,17 +9,39 @@ import {
 import Modal from 'react-native-modal';
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {defaultFilterOption} from '../constants';
 
 type ModalProps = {
   visible: boolean;
   setVisible: (args: boolean) => void;
+  filterOptions: any;
+  handleFilterOptions: (options: any) => void;
 };
 
-export function PriceFilterModal({visible, setVisible}: ModalProps) {
-  const [minPrice, setMinPrice] = useState<ReactText>('undefined');
-  const [maxPrice, setMaxPrice] = useState<ReactText>('undefined');
-  const [minUnitPrice, setMinUnitPrice] = useState<ReactText>('undefined');
-  const [maxUnitPrice, setMaxUnitPrice] = useState<ReactText>('undefined');
+export function PriceFilterModal({
+  visible,
+  setVisible,
+  handleFilterOptions,
+}: ModalProps) {
+  const [minPrice, setMinPrice] = useState<ReactText>();
+  const [maxPrice, setMaxPrice] = useState<ReactText>();
+  const [minUnitPrice, setMinUnitPrice] = useState<ReactText>();
+  const [maxUnitPrice, setMaxUnitPrice] = useState<ReactText>();
+
+  const applyFilter = () => {
+    handleFilterOptions({
+      ...defaultFilterOption,
+      price: {
+        startVal: minPrice,
+        endVal: maxPrice,
+      },
+      pricePerSqm: {
+        startVal: minUnitPrice,
+        endVal: maxUnitPrice,
+      },
+    });
+    setVisible(false);
+  };
 
   return (
     <Modal
@@ -43,10 +65,10 @@ export function PriceFilterModal({visible, setVisible}: ModalProps) {
                 style={styles.picker}
                 mode={'dialog'}
                 onValueChange={(itemValue) => setMinPrice(itemValue)}>
-                <Picker.Item label="Sin Minimo" value="undefined" />
-                <Picker.Item label="25.000 €" value="25000" />
-                <Picker.Item label="50.000 €" value="50000" />
-                <Picker.Item label="75.000 €" value="75000" />
+                <Picker.Item label="Sin Minimo" value={undefined} />
+                <Picker.Item label="250.000 €" value={250000} />
+                <Picker.Item label="500.000 €" value={500000} />
+                <Picker.Item label="750.000 €" value={750000} />
               </Picker>
             </View>
             <View style={styles.halfView}>
@@ -56,10 +78,10 @@ export function PriceFilterModal({visible, setVisible}: ModalProps) {
                 style={styles.picker}
                 mode={'dialog'}
                 onValueChange={(itemValue) => setMaxPrice(itemValue)}>
-                <Picker.Item label="Sin Minimo" value="undefined" />
-                <Picker.Item label="25.000 €" value="25000" />
-                <Picker.Item label="50.000 €" value="50000" />
-                <Picker.Item label="75.000 €" value="75000" />
+                <Picker.Item label="Sin Minimo" value={undefined} />
+                <Picker.Item label="250.000 €" value={250000} />
+                <Picker.Item label="500.000 €" value={500000} />
+                <Picker.Item label="750.000 €" value={750000} />
               </Picker>
             </View>
           </View>
@@ -74,14 +96,14 @@ export function PriceFilterModal({visible, setVisible}: ModalProps) {
                 style={styles.picker}
                 mode={'dialog'}
                 onValueChange={(itemValue) => setMinUnitPrice(itemValue)}>
-                <Picker.Item label="Sin Minimo" value="undefined" />
-                <Picker.Item label="500 €" value="500" />
-                <Picker.Item label="1.000 €" value="1000" />
-                <Picker.Item label="1.500 €" value="1500" />
-                <Picker.Item label="2.000 €" value="2000" />
-                <Picker.Item label="2.500 €" value="2500" />
-                <Picker.Item label="3.000 €" value="3000" />
-                <Picker.Item label="3.500 €" value="3500" />
+                <Picker.Item label="Sin Minimo" value={undefined} />
+                <Picker.Item label="500 €" value={500} />
+                <Picker.Item label="1.000 €" value={1000} />
+                <Picker.Item label="1.500 €" value={1500} />
+                <Picker.Item label="2.000 €" value={2000} />
+                <Picker.Item label="2.500 €" value={2500} />
+                <Picker.Item label="3.000 €" value={3000} />
+                <Picker.Item label="3.500 €" value={3500} />
               </Picker>
             </View>
             <View style={styles.halfView}>
@@ -91,14 +113,14 @@ export function PriceFilterModal({visible, setVisible}: ModalProps) {
                 style={styles.picker}
                 mode={'dialog'}
                 onValueChange={(itemValue) => setMaxUnitPrice(itemValue)}>
-                <Picker.Item label="Sin Minimo" value="undefined" />
-                <Picker.Item label="500 €" value="500" />
-                <Picker.Item label="1.000 €" value="1000" />
-                <Picker.Item label="1.500 €" value="1500" />
-                <Picker.Item label="2.000 €" value="2000" />
-                <Picker.Item label="2.500 €" value="2500" />
-                <Picker.Item label="3.000 €" value="3000" />
-                <Picker.Item label="3.500 €" value="3500" />
+                <Picker.Item label="Sin Minimo" value={undefined} />
+                <Picker.Item label="500 €" value={500} />
+                <Picker.Item label="1.000 €" value={1000} />
+                <Picker.Item label="1.500 €" value={1500} />
+                <Picker.Item label="2.000 €" value={2000} />
+                <Picker.Item label="2.500 €" value={2500} />
+                <Picker.Item label="3.000 €" value={3000} />
+                <Picker.Item label="3.500 €" value={3500} />
               </Picker>
             </View>
           </View>
@@ -106,7 +128,7 @@ export function PriceFilterModal({visible, setVisible}: ModalProps) {
         <View style={styles.bottomView}>
           <TouchableOpacity
             style={styles.filterBtn}
-            onPress={() => setVisible(false)}>
+            onPress={() => applyFilter()}>
             <Text style={styles.filterText}>Aplicar y filtar</Text>
           </TouchableOpacity>
         </View>
