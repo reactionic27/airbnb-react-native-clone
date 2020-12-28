@@ -6,6 +6,8 @@ import {
   FlatList,
   View,
   ImageBackground,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {useQuery} from '@apollo/client';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,9 +16,9 @@ import {GET_APARTMENTS_QUERY} from '../graphql';
 import {defaultFilterOption} from '../constants';
 import {ApartmentType} from '../types';
 import {numberWithCommas} from '../utils';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {Header} from '../components/Header';
 
-export function ApartmentsScreen() {
+export function ApartmentsScreen({navigation}: any) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filterOptions, setFilterOptions] = useState(defaultFilterOption);
   const [buildings, setBuildings] = useState<ApartmentType[]>([]);
@@ -53,6 +55,7 @@ export function ApartmentsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header {...navigation} />
       <View style={styles.filterWrapper}>
         <ScrollView
           horizontal
@@ -84,7 +87,7 @@ export function ApartmentsScreen() {
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.filterItemView}>
-            <Text style={styles.filterText}>Precio</Text>
+            <Text style={styles.filterText}>Mas filtros</Text>
             <Ionicons
               name="caret-down-sharp"
               size={15}

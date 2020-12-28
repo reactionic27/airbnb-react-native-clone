@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {ApartmentsScreen} from './src/screens/Apartments';
 
 const client = new ApolloClient({
@@ -10,15 +10,15 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Apartments" component={ApartmentsScreen} />
-        </Stack.Navigator>
+        <Drawer.Navigator>
+          <Drawer.Screen name="Buscar" component={ApartmentsScreen} />
+        </Drawer.Navigator>
       </NavigationContainer>
     </ApolloProvider>
   );
