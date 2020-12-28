@@ -1,12 +1,8 @@
 import React from 'react';
 import {shallow, ShallowWrapper} from 'enzyme';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloProvider} from '@apollo/client';
 
 import App from '../App';
-const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
-  cache: new InMemoryCache(),
-});
 
 describe('App', () => {
   describe('rendering', () => {
