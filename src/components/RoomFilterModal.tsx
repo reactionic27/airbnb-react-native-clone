@@ -24,16 +24,18 @@ export function RoomFilterModal({
   handleFilterOptions,
 }: ModalProps) {
   const [roomNumber, setRoomNumber] = useState<number>();
+  const [bathNumber, setBathNumber] = useState<number>();
 
   const applyFilter = () => {
-    if (roomNumber) {
-      handleFilterOptions({
-        ...filterOptions,
-        numberOfBedrooms: {
-          value: roomNumber + 1,
-        },
-      });
-    }
+    handleFilterOptions({
+      ...filterOptions,
+      numberOfBedrooms: {
+        value: roomNumber === 0 ? null : roomNumber,
+      },
+      numberOfBathrooms: {
+        value: bathNumber === 0 ? null : bathNumber,
+      },
+    });
     setVisible(false);
   };
 
@@ -54,10 +56,24 @@ export function RoomFilterModal({
           <View style={styles.flexView}>
             <View style={styles.segment}>
               <SegmentedControl
-                values={['1+', '2+', '3+', '4+']}
+                values={['All', '1+', '2+', '3+', '4+']}
                 selectedIndex={roomNumber}
                 onChange={(event) => {
                   setRoomNumber(event.nativeEvent.selectedSegmentIndex);
+                }}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.wrapper}>
+          <Text style={styles.headerText}>Numero de banos</Text>
+          <View style={styles.flexView}>
+            <View style={styles.segment}>
+              <SegmentedControl
+                values={['All', '1+', '2+', '3+', '4+']}
+                selectedIndex={bathNumber}
+                onChange={(event) => {
+                  setBathNumber(event.nativeEvent.selectedSegmentIndex);
                 }}
               />
             </View>

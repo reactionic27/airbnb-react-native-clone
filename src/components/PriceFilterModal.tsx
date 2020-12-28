@@ -9,7 +9,6 @@ import {
 import Modal from 'react-native-modal';
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {defaultFilterOption} from '../constants';
 
 type ModalProps = {
   visible: boolean;
@@ -21,6 +20,7 @@ type ModalProps = {
 export function PriceFilterModal({
   visible,
   setVisible,
+  filterOptions,
   handleFilterOptions,
 }: ModalProps) {
   const [minPrice, setMinPrice] = useState<ReactText>();
@@ -30,7 +30,7 @@ export function PriceFilterModal({
 
   const applyFilter = () => {
     handleFilterOptions({
-      ...defaultFilterOption,
+      ...filterOptions,
       price: {
         startVal: minPrice,
         endVal: maxPrice,
