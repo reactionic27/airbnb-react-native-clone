@@ -9,13 +9,7 @@ import {
 import Modal from 'react-native-modal';
 import SegmentedControl from '@react-native-community/segmented-control';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-type ModalProps = {
-  visible: boolean;
-  setVisible: (args: boolean) => void;
-  filterOptions: any;
-  handleFilterOptions: (options: any) => void;
-};
+import {ModalProps} from '../types';
 
 export function RoomFilterModal({
   visible,

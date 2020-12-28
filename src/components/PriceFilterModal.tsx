@@ -9,13 +9,7 @@ import {
 import Modal from 'react-native-modal';
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-type ModalProps = {
-  visible: boolean;
-  setVisible: (args: boolean) => void;
-  filterOptions: any;
-  handleFilterOptions: (options: any) => void;
-};
+import {ModalProps} from '../types';
 
 export function PriceFilterModal({
   visible,

@@ -8,3 +8,10 @@ export type ApartmentType = {
   numberOfBathrooms: number;
   picture: string;
 };
+
+export type ModalProps = {
+  visible: boolean;
+  setVisible: (args: boolean) => void;
+  filterOptions: any;
+  handleFilterOptions: (options: any) => void;
+};
