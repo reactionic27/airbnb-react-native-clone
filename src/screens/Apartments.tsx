@@ -88,6 +88,7 @@ export function ApartmentsScreen({navigation}: any) {
         </ScrollView>
       </View>
       <FlatList
+        testID="apartment-list"
         data={loading ? [] : buildings || []}
         keyExtractor={(item) => item.id}
         renderItem={({item}) => (

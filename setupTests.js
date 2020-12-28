@@ -1,8 +1,36 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-import {configure} from 'enzyme';
+import 'react-native';
+import 'jest-enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import Enzyme from 'enzyme';
 
+const {JSDOM} = require('jsdom');
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
+  url: 'https://localhost',
+});
+const {window} = jsdom;
+
+function copyProps(src, target) {
+  Object.defineProperties(target, {
+    ...Object.getOwnPropertyDescriptors(src),
+    ...Object.getOwnPropertyDescriptors(target),
+  });
+}
+
+global.window = window;
+global.document = window.document;
 global.fetch = require('jest-fetch-mock');
-configure({adapter: new Adapter()});
+global.navigator = {
+  userAgent: 'node.js',
+};
+copyProps(window, global);
+
+const originalConsoleError = console.error;
+console.error = (message) => {
+  if (message.startsWith('Warning:')) {
+    return;
+  }
+
+  originalConsoleError(message);
+};
+
+Enzyme.configure({adapter: new Adapter()});

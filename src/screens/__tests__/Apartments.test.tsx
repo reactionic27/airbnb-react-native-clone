@@ -1,7 +1,6 @@
 import React from 'react';
-import {shallow, ShallowWrapper} from 'enzyme';
+import {mount, shallow, ShallowWrapper} from 'enzyme';
 import {MockedProvider} from '@apollo/client/testing';
-
 import {ApartmentsScreen} from '../Apartments';
 import {GET_APARTMENTS_QUERY} from '../../graphql';
 
@@ -29,15 +28,26 @@ export const withApollo = (children: any) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
 
+const testProps = {
+  navigation: jest.fn,
+};
+
 describe('ApartmentsScreen', () => {
   describe('rendering', () => {
     let wrapper: ShallowWrapper;
     beforeEach(() => {
-      wrapper = shallow(withApollo(<ApartmentsScreen />));
+      wrapper = shallow(withApollo(<ApartmentsScreen {...testProps} />));
     });
 
     it('should render a <ApartmentsScreen />', () => {
       expect(wrapper.find(ApartmentsScreen)).toHaveLength(1);
+    });
+
+    it('renders FlatList with apartment-list testId', () => {
+      const wrapper1 = mount(withApollo(<ApartmentsScreen />));
+      expect(
+        wrapper1.findWhere((node) => node.prop('testID') === 'apartment-list'),
+      ).toExist();
     });
   });
 });
