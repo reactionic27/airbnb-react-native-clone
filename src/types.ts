@@ -10,6 +10,7 @@ export type ApartmentType = {
 };
 
 export type ModalProps = {
+  testId?: string;
   visible: boolean;
   setVisible: (args: boolean) => void;
   filterOptions: any;

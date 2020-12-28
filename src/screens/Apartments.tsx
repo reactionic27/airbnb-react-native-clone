@@ -53,7 +53,11 @@ export function ApartmentsScreen({navigation}: any) {
   };
 
   if (error) {
-    return <Text>Could not load data from data source.</Text>;
+    return (
+      <View style={styles.emptyView}>
+        <Text style={styles.emptyText}>Something went wrong</Text>
+      </View>
+    );
   }
 
   return (
@@ -92,7 +96,7 @@ export function ApartmentsScreen({navigation}: any) {
         data={loading ? [] : buildings || []}
         keyExtractor={(item) => item.id}
         renderItem={({item}) => (
-          <View style={styles.listItem}>
+          <View style={styles.listItem} testID="list-item">
             <ImageBackground
               source={{uri: item.picture}}
               style={styles.photoBG}
@@ -167,12 +171,14 @@ export function ApartmentsScreen({navigation}: any) {
         }}
       />
       <PriceFilterModal
+        testId={'price-filter-modal'}
         visible={priceFilterModalVisible}
         setVisible={setPriceFilterModalVisible}
         filterOptions={filterOptions}
         handleFilterOptions={handleFilterOptions}
       />
       <RoomFilterModal
+        testId={'room-filter-modal'}
         visible={roomFilterModalVisible}
         setVisible={setRoomFilterModalVisible}
         filterOptions={filterOptions}

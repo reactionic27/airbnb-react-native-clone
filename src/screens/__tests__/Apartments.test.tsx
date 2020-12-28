@@ -3,6 +3,8 @@ import {mount, shallow, ShallowWrapper} from 'enzyme';
 import {MockedProvider} from '@apollo/client/testing';
 import {ApartmentsScreen} from '../Apartments';
 import {GET_APARTMENTS_QUERY} from '../../graphql';
+import {PriceFilterModal} from '../../components/PriceFilterModal';
+import {RoomFilterModal} from '../../components/RoomFilterModal';
 
 const mocks = [
   {
@@ -44,10 +46,22 @@ describe('ApartmentsScreen', () => {
     });
 
     it('renders FlatList with apartment-list testId', () => {
-      const wrapper1 = mount(withApollo(<ApartmentsScreen />));
+      const mountWrapper = mount(withApollo(<ApartmentsScreen />));
       expect(
-        wrapper1.findWhere((node) => node.prop('testID') === 'apartment-list'),
+        mountWrapper.findWhere(
+          (node) => node.prop('testID') === 'apartment-list',
+        ),
       ).toExist();
+    });
+
+    it('renders PriceFilterModal with price-filter-modal testId', () => {
+      const mountWrapper = mount(withApollo(<ApartmentsScreen />));
+      expect(mountWrapper.find(PriceFilterModal)).toHaveLength(1);
+    });
+
+    it('renders RoomFilterModal with room-filter-modal testId', () => {
+      const mountWrapper = mount(withApollo(<ApartmentsScreen />));
+      expect(mountWrapper.find(RoomFilterModal)).toHaveLength(1);
     });
   });
 });
