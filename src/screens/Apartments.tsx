@@ -17,11 +17,13 @@ import {defaultFilterOption} from '../constants';
 import {ApartmentType} from '../types';
 import {numberWithCommas} from '../utils';
 import {Header} from '../components/Header';
+import {PriceFilterModal} from '../components/PriceFilterModal';
 
 export function ApartmentsScreen({navigation}: any) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filterOptions, setFilterOptions] = useState(defaultFilterOption);
   const [buildings, setBuildings] = useState<ApartmentType[]>([]);
+  const [priceFilterModalVisible, setPriceFilterModalVisible] = useState(false);
 
   const {data, loading, error, fetchMore} = useQuery(GET_APARTMENTS_QUERY, {
     variables: {
@@ -62,7 +64,9 @@ export function ApartmentsScreen({navigation}: any) {
           removeClippedSubviews
           contentContainerStyle={styles.scrollView}
           showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity style={styles.filterItemView}>
+          <TouchableOpacity
+            style={styles.filterItemView}
+            onPress={() => setPriceFilterModalVisible(true)}>
             <Text style={styles.filterText}>Precio</Text>
             <Ionicons
               name="caret-down-sharp"
@@ -168,6 +172,10 @@ export function ApartmentsScreen({navigation}: any) {
             },
           });
         }}
+      />
+      <PriceFilterModal
+        visible={priceFilterModalVisible}
+        setVisible={setPriceFilterModalVisible}
       />
     </SafeAreaView>
   );
