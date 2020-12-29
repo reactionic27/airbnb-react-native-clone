@@ -68,14 +68,26 @@ export function ApartmentsScreen({navigation}: any) {
     let unitPriceEnabledText = '';
     if (filterOptions.price.startVal || filterOptions.price.endVal) {
       priceEnabled = true;
-      priceEnabledText = `${filterOptions.price.startVal} € - ${filterOptions.price.endVal} €`;
+      priceEnabledText = `${
+        filterOptions.price.startVal ? filterOptions.price.startVal : 'NaN'
+      } € - ${
+        filterOptions.price.endVal ? filterOptions.price.endVal : 'NaN'
+      } €`;
     }
     if (
       filterOptions.pricePerSqm.startVal ||
       filterOptions.pricePerSqm.endVal
     ) {
       unitPriceEnabled = true;
-      unitPriceEnabledText = `${filterOptions.pricePerSqm.startVal} €/m² - ${filterOptions.pricePerSqm.endVal} €/m²`;
+      unitPriceEnabledText = `${
+        filterOptions.pricePerSqm.startVal
+          ? filterOptions.pricePerSqm.startVal
+          : 'NaN'
+      } €/m² - ${
+        filterOptions.pricePerSqm.endVal
+          ? filterOptions.pricePerSqm.endVal
+          : 'NaN'
+      } €/m²`;
     }
     if (priceEnabled && unitPriceEnabled) {
       priceText = `${priceEnabledText}, ${unitPriceEnabledText}`;
