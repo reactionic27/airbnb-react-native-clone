@@ -8,7 +8,16 @@ import {PriceFilterModal} from '../PriceFilterModal';
 const testProps = {
   visible: true,
   setVisible: jest.fn,
-  filterOptions: [],
+  filterOptions: {
+    price: {
+      startVal: 1,
+      endVal: 2,
+    },
+    pricePerSqm: {
+      startVal: 1,
+      endVal: 2,
+    },
+  },
   handleFilterOptions: jest.fn,
 };
 

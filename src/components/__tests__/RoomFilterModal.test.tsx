@@ -6,7 +6,14 @@ import {RoomFilterModal} from '../RoomFilterModal';
 const testProps = {
   visible: true,
   setVisible: jest.fn,
-  filterOptions: [],
+  filterOptions: {
+    numberOfBedrooms: {
+      value: 1,
+    },
+    numberOfBathrooms: {
+      value: 2,
+    },
+  },
   handleFilterOptions: jest.fn,
 };
 
