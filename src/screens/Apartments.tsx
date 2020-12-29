@@ -157,6 +157,7 @@ export function ApartmentsScreen({navigation}: any) {
             onPress={() => setFilterOptions(defaultFilterOption)}>
             <Text style={styles.filterText}>Reset Filters</Text>
           </TouchableOpacity>
+          <View style={styles.paddingView} />
         </ScrollView>
       </View>
       <FlatList

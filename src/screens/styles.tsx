@@ -107,4 +107,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Raleway-Regular',
   },
+  paddingView: {
+    width: 50,
+  },
 });
