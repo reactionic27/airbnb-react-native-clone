@@ -69,7 +69,7 @@ export function ApartmentsScreen({navigation}: any) {
       filterOptions.pricePerSqm.startVal ||
       filterOptions.pricePerSqm.endVal
     ) {
-      priceText = `${filterOptions.pricePerSqm.startVal} € - ${filterOptions.pricePerSqm.endVal} €`;
+      priceText = `${filterOptions.pricePerSqm.startVal} €/m² - ${filterOptions.pricePerSqm.endVal} €/m²`;
     }
     return priceText;
   };

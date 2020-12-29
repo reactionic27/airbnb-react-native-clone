@@ -1,4 +1,4 @@
-import React, {ReactText, useState} from 'react';
+import React, {ReactText, useEffect, useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -17,18 +17,17 @@ export function PriceFilterModal({
   filterOptions,
   handleFilterOptions,
 }: ModalProps) {
-  const [minPrice, setMinPrice] = useState<ReactText>(
-    filterOptions.price.startVal,
-  );
-  const [maxPrice, setMaxPrice] = useState<ReactText>(
-    filterOptions.price.endVal,
-  );
-  const [minUnitPrice, setMinUnitPrice] = useState<ReactText>(
-    filterOptions.pricePerSqm.startVal,
-  );
-  const [maxUnitPrice, setMaxUnitPrice] = useState<ReactText>(
-    filterOptions.pricePerSqm.endVal,
-  );
+  const [minPrice, setMinPrice] = useState<ReactText>();
+  const [maxPrice, setMaxPrice] = useState<ReactText>();
+  const [minUnitPrice, setMinUnitPrice] = useState<ReactText>();
+  const [maxUnitPrice, setMaxUnitPrice] = useState<ReactText>();
+
+  useEffect(() => {
+    setMinPrice(filterOptions.price.startVal);
+    setMaxPrice(filterOptions.price.endVal);
+    setMinUnitPrice(filterOptions.pricePerSqm.startVal);
+    setMaxUnitPrice(filterOptions.pricePerSqm.startVal);
+  }, [filterOptions]);
 
   const applyFilter = () => {
     handleFilterOptions({
@@ -45,8 +44,6 @@ export function PriceFilterModal({
     setVisible(false);
   };
 
-  console.log('filterOptions.price.startVal', filterOptions.price.startVal);
-  console.log('minPrice', minPrice);
   return (
     <Modal
       isVisible={visible}

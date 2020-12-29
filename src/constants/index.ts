@@ -1,20 +1,20 @@
 export const defaultFilterOption = {
   price: {
-    startVal: null,
-    endVal: null,
+    startVal: undefined,
+    endVal: undefined,
   },
   pricePerSqm: {
-    startVal: null,
-    endVal: null,
+    startVal: undefined,
+    endVal: undefined,
   },
   sqm: {
-    startVal: null,
-    endVal: null,
+    startVal: undefined,
+    endVal: undefined,
   },
   numberOfBedrooms: {
-    value: null,
+    value: undefined,
   },
   numberOfBathrooms: {
-    value: null,
+    value: undefined,
   },
 };

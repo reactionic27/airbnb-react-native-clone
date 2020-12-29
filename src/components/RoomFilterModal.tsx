@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -19,6 +19,11 @@ export function RoomFilterModal({
 }: ModalProps) {
   const [roomNumber, setRoomNumber] = useState<number>();
   const [bathNumber, setBathNumber] = useState<number>();
+
+  useEffect(() => {
+    setRoomNumber(filterOptions.numberOfBedrooms.value);
+    setBathNumber(filterOptions.numberOfBathrooms.value);
+  }, [filterOptions]);
 
   const applyFilter = () => {
     handleFilterOptions({
