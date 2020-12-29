@@ -62,25 +62,51 @@ export function ApartmentsScreen({navigation}: any) {
 
   const getPriceFilterText = () => {
     let priceText = 'Precio';
+    let priceEnabled = false;
+    let priceEnabledText = '';
+    let unitPriceEnabled = false;
+    let unitPriceEnabledText = '';
     if (filterOptions.price.startVal || filterOptions.price.endVal) {
-      priceText = `${filterOptions.price.startVal} € - ${filterOptions.price.endVal} €`;
+      priceEnabled = true;
+      priceEnabledText = `${filterOptions.price.startVal} € - ${filterOptions.price.endVal} €`;
     }
     if (
       filterOptions.pricePerSqm.startVal ||
       filterOptions.pricePerSqm.endVal
     ) {
-      priceText = `${filterOptions.pricePerSqm.startVal} €/m² - ${filterOptions.pricePerSqm.endVal} €/m²`;
+      unitPriceEnabled = true;
+      unitPriceEnabledText = `${filterOptions.pricePerSqm.startVal} €/m² - ${filterOptions.pricePerSqm.endVal} €/m²`;
+    }
+    if (priceEnabled && unitPriceEnabled) {
+      priceText = `${priceEnabledText}, ${unitPriceEnabledText}`;
+    } else if (priceEnabled) {
+      priceText = priceEnabledText;
+    } else if (unitPriceEnabled) {
+      priceText = unitPriceEnabledText;
     }
     return priceText;
   };
 
   const getRoomFilterText = () => {
     let roomText = '#de habitacion';
+    let bedRoomEnabled = false;
+    let bedRoomEnabledText = '';
+    let bathRoomEnabled = false;
+    let bathRoomEnabledText = '';
     if (filterOptions.numberOfBedrooms.value) {
-      roomText = `${filterOptions.numberOfBedrooms.value} Bedrooms`;
+      bedRoomEnabled = true;
+      bedRoomEnabledText = `${filterOptions.numberOfBedrooms.value} Bedrooms`;
     }
     if (filterOptions.numberOfBathrooms.value) {
-      roomText = `${filterOptions.numberOfBathrooms.value} Bathrooms`;
+      bathRoomEnabled = true;
+      bathRoomEnabledText = `${filterOptions.numberOfBathrooms.value} Bathrooms`;
+    }
+    if (bedRoomEnabled && bathRoomEnabled) {
+      roomText = `${bedRoomEnabledText}, ${bathRoomEnabledText}`;
+    } else if (bedRoomEnabled) {
+      roomText = bedRoomEnabledText;
+    } else if (bathRoomEnabled) {
+      roomText = bathRoomEnabledText;
     }
     return roomText;
   };
