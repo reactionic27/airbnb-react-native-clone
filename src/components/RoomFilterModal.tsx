@@ -29,10 +29,10 @@ export function RoomFilterModal({
     handleFilterOptions({
       ...filterOptions,
       numberOfBedrooms: {
-        value: roomNumber === 0 ? null : roomNumber,
+        value: roomNumber === 0 ? undefined : roomNumber,
       },
       numberOfBathrooms: {
-        value: bathNumber === 0 ? null : bathNumber,
+        value: bathNumber === 0 ? undefined : bathNumber,
       },
     });
     setVisible(false);
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     top: 40,
   },
   wrapper: {
-    marginTop: 50,
+    marginTop: 100,
   },
   downWrapper: {
     marginTop: 200,
