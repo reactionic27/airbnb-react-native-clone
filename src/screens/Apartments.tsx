@@ -155,7 +155,7 @@ export function ApartmentsScreen({navigation}: any) {
           <TouchableOpacity
             style={styles.filterItemView}
             onPress={() => setFilterOptions(defaultFilterOption)}>
-            <Text style={styles.filterText}>Rest Filters</Text>
+            <Text style={styles.filterText}>Reset Filters</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

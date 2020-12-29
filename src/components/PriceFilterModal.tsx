@@ -26,7 +26,7 @@ export function PriceFilterModal({
     setMinPrice(filterOptions.price.startVal);
     setMaxPrice(filterOptions.price.endVal);
     setMinUnitPrice(filterOptions.pricePerSqm.startVal);
-    setMaxUnitPrice(filterOptions.pricePerSqm.startVal);
+    setMaxUnitPrice(filterOptions.pricePerSqm.endVal);
   }, [filterOptions]);
 
   const applyFilter = () => {
