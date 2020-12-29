@@ -75,6 +75,7 @@ export function RoomFilterModal({
         </View>
         <View style={styles.bottomView}>
           <TouchableOpacity
+            testID="apply-filter-button"
             style={styles.filterBtn}
             onPress={() => applyFilter()}>
             <Text style={styles.filterText}>Aplicar y filtar</Text>

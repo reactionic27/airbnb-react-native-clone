@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-native-modal';
-import {shallow, ShallowWrapper} from 'enzyme';
+import {mount, ReactWrapper, shallow, ShallowWrapper} from 'enzyme';
 import {RoomFilterModal} from '../RoomFilterModal';
 
 const testProps = {
@@ -12,13 +12,29 @@ const testProps = {
 
 describe('RoomFilterModal', () => {
   describe('rendering', () => {
-    let wrapper: ShallowWrapper;
+    let wrapper: ShallowWrapper, mountWrapper: ReactWrapper;
     beforeEach(() => {
       wrapper = shallow(<RoomFilterModal {...testProps} />);
+      mountWrapper = mount(<RoomFilterModal {...testProps} />);
     });
 
     it('should render a <Modal />', () => {
       expect(wrapper.find(Modal)).toHaveLength(1);
+    });
+
+    it('renders apply button with apply-filter-button testId', () => {
+      expect(
+        mountWrapper.findWhere(
+          (node) => node.prop('testID') === 'apply-filter-button',
+        ),
+      ).toExist();
+    });
+
+    it('simulate click event for button', () => {
+      const button = mountWrapper.findWhere(
+        (node) => node.prop('testID') === 'apply-filter-button',
+      );
+      console.log('button', button);
     });
   });
 });

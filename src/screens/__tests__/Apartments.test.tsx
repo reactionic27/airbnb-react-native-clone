@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount, shallow, ShallowWrapper} from 'enzyme';
+import {mount, ReactWrapper, shallow, ShallowWrapper} from 'enzyme';
 import {MockedProvider} from '@apollo/client/testing';
 import {ApartmentsScreen} from '../Apartments';
 import {GET_APARTMENTS_QUERY} from '../../graphql';
@@ -36,9 +36,10 @@ const testProps = {
 
 describe('ApartmentsScreen', () => {
   describe('rendering', () => {
-    let wrapper: ShallowWrapper;
+    let wrapper: ShallowWrapper, mountWrapper: ReactWrapper;
     beforeEach(() => {
       wrapper = shallow(withApollo(<ApartmentsScreen {...testProps} />));
+      mountWrapper = mount(withApollo(<ApartmentsScreen />));
     });
 
     it('should render a <ApartmentsScreen />', () => {
@@ -46,7 +47,6 @@ describe('ApartmentsScreen', () => {
     });
 
     it('renders FlatList with apartment-list testId', () => {
-      const mountWrapper = mount(withApollo(<ApartmentsScreen />));
       expect(
         mountWrapper.findWhere(
           (node) => node.prop('testID') === 'apartment-list',
@@ -55,12 +55,10 @@ describe('ApartmentsScreen', () => {
     });
 
     it('renders PriceFilterModal with price-filter-modal testId', () => {
-      const mountWrapper = mount(withApollo(<ApartmentsScreen />));
       expect(mountWrapper.find(PriceFilterModal)).toHaveLength(1);
     });
 
     it('renders RoomFilterModal with room-filter-modal testId', () => {
-      const mountWrapper = mount(withApollo(<ApartmentsScreen />));
       expect(mountWrapper.find(RoomFilterModal)).toHaveLength(1);
     });
   });

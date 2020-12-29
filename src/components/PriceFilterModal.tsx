@@ -45,7 +45,8 @@ export function PriceFilterModal({
       animationIn="fadeIn">
       <SafeAreaView style={styles.container}>
         <TouchableOpacity
-          onPress={() => setVisible(false)}
+          testID="close-icon"
+          onPress={() => setMinPrice(10)}
           style={styles.closeWrapper}>
           <Ionicons name="close" size={30} />
         </TouchableOpacity>
@@ -121,6 +122,7 @@ export function PriceFilterModal({
         </View>
         <View style={styles.bottomView}>
           <TouchableOpacity
+            testID="apply-filter-button"
             style={styles.filterBtn}
             onPress={() => applyFilter()}>
             <Text style={styles.filterText}>Aplicar y filtar</Text>
