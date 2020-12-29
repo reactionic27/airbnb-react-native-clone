@@ -60,6 +60,31 @@ export function ApartmentsScreen({navigation}: any) {
     );
   }
 
+  const getPriceFilterText = () => {
+    let priceText = 'Precio';
+    if (filterOptions.price.startVal || filterOptions.price.endVal) {
+      priceText = `${filterOptions.price.startVal} € - ${filterOptions.price.endVal} €`;
+    }
+    if (
+      filterOptions.pricePerSqm.startVal ||
+      filterOptions.pricePerSqm.endVal
+    ) {
+      priceText = `${filterOptions.pricePerSqm.startVal} € - ${filterOptions.pricePerSqm.endVal} €`;
+    }
+    return priceText;
+  };
+
+  const getRoomFilterText = () => {
+    let roomText = '#de habitacion';
+    if (filterOptions.numberOfBedrooms.value) {
+      roomText = `${filterOptions.numberOfBedrooms.value} Bedrooms`;
+    }
+    if (filterOptions.numberOfBathrooms.value) {
+      roomText = `${filterOptions.numberOfBathrooms.value} Bathrooms`;
+    }
+    return roomText;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header {...navigation} />
@@ -72,7 +97,7 @@ export function ApartmentsScreen({navigation}: any) {
           <TouchableOpacity
             style={styles.filterItemView}
             onPress={() => setPriceFilterModalVisible(true)}>
-            <Text style={styles.filterText}>Precio</Text>
+            <Text style={styles.filterText}>{getPriceFilterText()}</Text>
             <Ionicons
               name="caret-down-sharp"
               size={15}
@@ -82,12 +107,17 @@ export function ApartmentsScreen({navigation}: any) {
           <TouchableOpacity
             style={styles.filterItemView}
             onPress={() => setRoomFilterModalVisible(true)}>
-            <Text style={styles.filterText}>#de habitacion</Text>
+            <Text style={styles.filterText}>{getRoomFilterText()}</Text>
             <Ionicons
               name="caret-down-sharp"
               size={15}
               style={styles.downIcon}
             />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.filterItemView}
+            onPress={() => setFilterOptions(defaultFilterOption)}>
+            <Text style={styles.filterText}>Rest Filters</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

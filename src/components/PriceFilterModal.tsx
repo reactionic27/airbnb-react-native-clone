@@ -17,10 +17,18 @@ export function PriceFilterModal({
   filterOptions,
   handleFilterOptions,
 }: ModalProps) {
-  const [minPrice, setMinPrice] = useState<ReactText>();
-  const [maxPrice, setMaxPrice] = useState<ReactText>();
-  const [minUnitPrice, setMinUnitPrice] = useState<ReactText>();
-  const [maxUnitPrice, setMaxUnitPrice] = useState<ReactText>();
+  const [minPrice, setMinPrice] = useState<ReactText>(
+    filterOptions.price.startVal,
+  );
+  const [maxPrice, setMaxPrice] = useState<ReactText>(
+    filterOptions.price.endVal,
+  );
+  const [minUnitPrice, setMinUnitPrice] = useState<ReactText>(
+    filterOptions.pricePerSqm.startVal,
+  );
+  const [maxUnitPrice, setMaxUnitPrice] = useState<ReactText>(
+    filterOptions.pricePerSqm.endVal,
+  );
 
   const applyFilter = () => {
     handleFilterOptions({
@@ -37,6 +45,8 @@ export function PriceFilterModal({
     setVisible(false);
   };
 
+  console.log('filterOptions.price.startVal', filterOptions.price.startVal);
+  console.log('minPrice', minPrice);
   return (
     <Modal
       isVisible={visible}
@@ -46,7 +56,7 @@ export function PriceFilterModal({
       <SafeAreaView style={styles.container}>
         <TouchableOpacity
           testID="close-icon"
-          onPress={() => setMinPrice(10)}
+          onPress={() => setVisible(false)}
           style={styles.closeWrapper}>
           <Ionicons name="close" size={30} />
         </TouchableOpacity>
