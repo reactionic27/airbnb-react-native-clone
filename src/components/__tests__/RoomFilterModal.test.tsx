@@ -29,12 +29,5 @@ describe('RoomFilterModal', () => {
         ),
       ).toExist();
     });
-
-    it('simulate click event for button', () => {
-      const button = mountWrapper.findWhere(
-        (node) => node.prop('testID') === 'apply-filter-button',
-      );
-      console.log('button', button);
-    });
   });
 });
