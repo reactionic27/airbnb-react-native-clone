@@ -43,11 +43,5 @@ describe('Header', () => {
         ),
       ).toExist();
     });
-
-    it('simulate click event for apply button', () => {
-      const wrapper1 = mount(<PriceFilterModal {...testProps} />);
-      const instance = wrapper1.instance();
-      console.log('instance', instance);
-    });
   });
 });

@@ -58,7 +58,6 @@ export function PriceFilterModal({
               <Picker
                 selectedValue={minPrice}
                 style={styles.picker}
-                mode={'dialog'}
                 onValueChange={(itemValue) => setMinPrice(itemValue)}>
                 <Picker.Item label="Sin Minimo" value={undefined} />
                 <Picker.Item label="250.000 €" value={250000} />
@@ -71,7 +70,6 @@ export function PriceFilterModal({
               <Picker
                 selectedValue={maxPrice}
                 style={styles.picker}
-                mode={'dialog'}
                 onValueChange={(itemValue) => setMaxPrice(itemValue)}>
                 <Picker.Item label="Sin Minimo" value={undefined} />
                 <Picker.Item label="250.000 €" value={250000} />
@@ -89,7 +87,6 @@ export function PriceFilterModal({
               <Picker
                 selectedValue={minUnitPrice}
                 style={styles.picker}
-                mode={'dialog'}
                 onValueChange={(itemValue) => setMinUnitPrice(itemValue)}>
                 <Picker.Item label="Sin Minimo" value={undefined} />
                 <Picker.Item label="500 €" value={500} />
@@ -106,7 +103,6 @@ export function PriceFilterModal({
               <Picker
                 selectedValue={maxUnitPrice}
                 style={styles.picker}
-                mode={'dialog'}
                 onValueChange={(itemValue) => setMaxUnitPrice(itemValue)}>
                 <Picker.Item label="Sin Minimo" value={undefined} />
                 <Picker.Item label="500 €" value={500} />
